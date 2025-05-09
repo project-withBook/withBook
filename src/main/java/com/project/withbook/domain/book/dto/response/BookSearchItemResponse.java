@@ -1,11 +1,8 @@
 package com.project.withbook.domain.book.dto.response;
 
+import com.project.withbook.domain.book.model.BookInfo;
 import lombok.Builder;
 import lombok.Getter;
-import org.w3c.dom.Element;
-
-import static com.project.withbook.domain.book.util.XmlUtils.getTagValue;
-import static com.project.withbook.domain.book.util.XmlUtils.parseIntOrZero;
 
 @Getter
 @Builder
@@ -25,15 +22,15 @@ public class BookSearchItemResponse {
 
     private final String isbn;
 
-    public static BookSearchItemResponse from(Element element) {
+    public static BookSearchItemResponse from(BookInfo data) {
         return BookSearchItemResponse.builder()
-                .title(getTagValue("title", element))
-                .author(getTagValue("author", element))
-                .description(getTagValue("description", element))
-                .coverImgUrl(getTagValue("cover", element))
-                .customerReviewRank(parseIntOrZero(getTagValue("customerReviewRank", element)))
-                .publisher(getTagValue("publisher", element))
-                .isbn(getTagValue("isbn13", element))
+                .title(data.title())
+                .author(data.author())
+                .description(data.description())
+                .coverImgUrl(data.coverImgUrl())
+                .customerReviewRank(data.customerReviewRank())
+                .publisher(data.publisher())
+                .isbn(data.isbn())
                 .build();
     }
 }
