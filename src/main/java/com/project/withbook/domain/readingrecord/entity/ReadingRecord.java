@@ -4,6 +4,7 @@ import com.project.withbook.common.base.BaseEntity;
 import com.project.withbook.domain.book.entity.Book;
 import com.project.withbook.domain.user.entity.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -36,4 +37,14 @@ public class ReadingRecord extends BaseEntity {
 
     @Column(name = "like_count", length = 10, nullable = false)
     private int likeCount;
+
+    @Builder
+    public ReadingRecord(User user, Book book, String title, String content, int rating, int likeCount) {
+        this.user = user;
+        this.book = book;
+        this.title = title;
+        this.content = content;
+        this.rating = rating;
+        this.likeCount = likeCount;
+    }
 }
