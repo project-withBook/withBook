@@ -5,9 +5,12 @@ import com.project.withbook.domain.book.entity.Book;
 import com.project.withbook.domain.library.enums.ReadingStatus;
 import com.project.withbook.domain.user.entity.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
+@DynamicUpdate
 @Entity
 @Getter
 @NoArgsConstructor
@@ -31,4 +34,21 @@ public class Library extends BaseEntity {
 
     @Column(name = "now_page", nullable = false)
     private int nowPage;
+
+    @Builder
+    public Library(User user, Book book, ReadingStatus status, int nowPage) {
+        this.user = user;
+        this.book = book;
+        this.status = status;
+        this.nowPage = nowPage;
+    }
+
+    public void updateLibrary(ReadingStatus status, Integer nowPage) {
+        if (status != null) this.status = status;
+        if (nowPage != null) this.nowPage = nowPage;
+    }
+
+    public boolean isOwnedBy(Long userId) {
+        return this.user.getId().equals(userId);
+    }
 }
